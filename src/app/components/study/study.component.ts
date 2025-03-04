@@ -46,25 +46,33 @@ export class StudyComponent implements OnInit {
   ) {}
   
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (!id) {
-      this.error = true;
-      this.loading = false;
-      return;
-    }
-    
-    this.loadWordSet(id);
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+      if (!id) {
+        this.error = true;
+        this.loading = false;
+        return;
+      }
+      
+      this.loadWordSet(id);
+    });
   }
   
   loadWordSet(id: string): void {
     this.wordSetService.getWordSetById(id).subscribe({
       next: (wordSet) => {
-        this.wordSet = wordSet;
-        this.shuffleWords();
-        this.loading = false;
-        
-        if (this.studyMode === StudyMode.MULTIPLE_CHOICE) {
-          this.generateOptions();
+        if (wordSet) {
+          this.wordSet = wordSet;
+          this.shuffleWords();
+          this.loading = false;
+          
+          if (this.studyMode === StudyMode.MULTIPLE_CHOICE) {
+            this.generateOptions();
+          }
+        } else {
+          this.error = true;
+          this.loading = false;
+          this.router.navigate(['/word-sets']);
         }
       },
       error: (err) => {

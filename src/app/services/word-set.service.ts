@@ -39,11 +39,15 @@ export class WordSetService {
 
   getWordSetById(id: string): Observable<WordSet | null> {
     const wordSet = this.wordSets.find(set => set.id === id);
-    if (wordSet) {
-      return of(wordSet);
-    } else {
-      return of(null);
-    }
+    return of(wordSet || null);
+  }
+
+  getWordSetByIdDirect(id: string): WordSet | undefined {
+    return this.wordSets.find(set => set.id === id);
+  }
+
+  getWordsForSet(setId: string): Word[] {
+    return this.wordSets.find(set => set.id === setId)?.words || [];
   }
 
   createWordSet(name: string, description?: string): WordSet {
@@ -61,11 +65,15 @@ export class WordSetService {
     return newSet;
   }
 
-  updateWordSet(updatedSet: WordSet): void {
-    const index = this.wordSets.findIndex(set => set.id === updatedSet.id);
+  updateWordSet(id: string, name: string, description: string): void {
+    const index = this.wordSets.findIndex(set => set.id === id);
     if (index !== -1) {
-      updatedSet.updatedAt = new Date();
-      this.wordSets[index] = updatedSet;
+      this.wordSets[index] = {
+        ...this.wordSets[index],
+        title: name,
+        description,
+        updatedAt: new Date()
+      };
       this.saveToLocalStorage();
     }
   }
@@ -144,6 +152,13 @@ export class WordSetService {
 
   getRandomWordSetId(): string {
     return this.wordSets[Math.floor(Math.random() * this.wordSets.length)].id;
+  }
+
+  clearWordsFromSet(setId: string): void {
+    this.wordSets = this.wordSets.map(set =>
+      set.id === setId ? { ...set, words: [] } : set
+    );
+    this.saveToLocalStorage();
   }
 
   private addSampleWordSets(): void {
