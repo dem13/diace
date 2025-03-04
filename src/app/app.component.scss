@@ -1,0 +1,21 @@
+:host {
+  display: block;
+  
+  // Add padding to account for fixed header
+  main {
+    padding-top: 90px; // Slightly more than header height (70px) for spacing
+    min-height: 100vh;
+    
+    // Adjust padding when header is scrolled and becomes smaller
+    .scrolled-header & {
+      padding-top: 80px;
+    }
+  }
+}
+
+// Dark theme adjustments if needed
+:host-context(.dark-theme) {
+  main {
+    // Any dark theme specific adjustments
+  }
+}
