@@ -142,6 +142,10 @@ export class WordSetService {
     }
   }
 
+  getRandomWordSetId(): string {
+    return this.wordSets[Math.floor(Math.random() * this.wordSets.length)].id;
+  }
+
   private addSampleWordSets(): void {
     const sampleSets = [
       {
