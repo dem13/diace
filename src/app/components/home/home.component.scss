@@ -1,7 +1,9 @@
 .home-container {
+  width: 100%;
+  padding: 0 1rem;
   .hero {
-    padding: 3rem 0;
-    background-color: #f5f5f5;
+    padding: 60px 0;
+    background-color: #f8f9fa;
     text-align: center;
     
     h1 {
@@ -25,7 +27,7 @@
   .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 0 24px;
   }
   
   .recent-sets {

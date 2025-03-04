@@ -2,7 +2,9 @@
   display: block;
   
   .study-container {
-    padding: 2rem 0;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px 24px;
   }
   
   // Loading and Error States
