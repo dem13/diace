@@ -18,7 +18,7 @@ export const routes: Routes = [
     component: WordSetCreatorComponent
   },
   {
-    path: 'word-sets/:id/edit',
+    path: 'word-sets/:id',
     component: WordSetCreatorComponent
   },
   {

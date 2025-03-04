@@ -4,8 +4,8 @@
       <h1>Learn with Flashcards</h1>
       <p>Create and study word sets to improve your vocabulary</p>
       <div class="cta-buttons">
-        <a routerLink="/create" class="btn btn-primary">Create New Set</a>
-        <a routerLink="/sets" class="btn btn-secondary">View My Sets</a>
+        <a routerLink="/word-sets/create" class="btn btn-primary">Create New Set</a>
+        <a routerLink="/word-sets" class="btn btn-secondary">View My Sets</a>
       </div>
     </div>
   </section>
@@ -24,7 +24,7 @@
         <p *ngIf="set?.description">{{ set.description }}</p>
         <p class="word-count">{{ set?.words?.length ?? 0 }} words</p>
         <div class="card-actions">
-          <a [routerLink]="['/sets', set.id]" class="btn btn-sm">View</a>
+          <a [routerLink]="['/word-sets', set.id]" class="btn btn-sm">View</a>
           <a [routerLink]="['/study', set.id]" class="btn btn-sm btn-primary">Study</a>
         </div>
       </div>
