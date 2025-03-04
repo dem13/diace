@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { WordSetService } from '../../services/word-set.service';
 import { WordSet } from '../../models/word-set.model';
@@ -14,7 +14,9 @@ import { WordSet } from '../../models/word-set.model';
 export class WordSetListComponent implements OnInit {
   wordSets: WordSet[] = [];
 
-  constructor(private wordSetService: WordSetService) {}
+  constructor(
+    private wordSetService: WordSetService,
+  ) {}
 
   ngOnInit(): void {
     this.wordSetService.getWordSets().subscribe(sets => {
@@ -24,8 +26,5 @@ export class WordSetListComponent implements OnInit {
 
   deleteSet(id: string, event: Event): void {
     event.stopPropagation();
-    if (confirm('Are you sure you want to delete this set?')) {
-      this.wordSetService.deleteWordSet(id);
-    }
   }
 } 
