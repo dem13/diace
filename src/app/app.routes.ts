@@ -1,25 +1,29 @@
 import { Routes } from '@angular/router';
+import { HomeComponent } from './components/home/home.component';
+import { WordSetListComponent } from './components/word-set-list/word-set-list.component';
+import { WordSetCreatorComponent } from './components/word-set-creator/word-set-creator.component';
+import { StudyComponent } from './components/study/study.component';
 
 export const routes: Routes = [
   {
     path: '',
-    loadComponent: () => import('./components/home/home.component').then(m => m.HomeComponent)
+    component: HomeComponent
   },
   {
     path: 'word-sets',
-    loadComponent: () => import('./components/word-set-list/word-set-list.component').then(m => m.WordSetListComponent)
+    component: WordSetListComponent
   },
   {
     path: 'word-sets/create',
-    loadComponent: () => import('./components/word-set-creator/word-set-creator.component').then(m => m.WordSetCreatorComponent)
+    component: WordSetCreatorComponent
   },
   {
     path: 'word-sets/:id/edit',
-    loadComponent: () => import('./components/word-set-creator/word-set-creator.component').then(m => m.WordSetCreatorComponent)
+    component: WordSetCreatorComponent
   },
   {
     path: 'study/:id',
-    loadComponent: () => import('./components/study/study.component').then(m => m.StudyComponent)
+    component: StudyComponent
   },
   {
     path: '**',
