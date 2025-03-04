@@ -1,20 +1,48 @@
 <div class="container">
   <h1>My Word Sets</h1>
   
-  @if (wordSets.length === 0) {
+  <div class="controls-bar">
+    <div class="search-container">
+      <input 
+        type="text" 
+        placeholder="Search by title..." 
+        [(ngModel)]="searchQuery"
+        (input)="applyFilters()"
+        class="search-input"
+      >
+    </div>
+    
+    <div class="sort-controls">
+      <div class="sort-by">
+        <label for="sort-select">Sort by:</label>
+        <select id="sort-select" [(ngModel)]="sortBy" (change)="applyFilters()">
+          <option value="title_asc">Title (A-Z)</option>
+          <option value="title_desc">Title (Z-A)</option>
+          <option value="date_desc">Newest first</option>
+          <option value="date_asc">Oldest first</option>
+          <option value="words_desc">Most words</option>
+          <option value="words_asc">Fewest words</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  
+  @if (filteredWordSets.length === 0) {
     <div class="empty-state">
-      <p>You don't have any word sets yet.</p>
-      <a routerLink="/word-sets/create" class="btn-primary">Create your first set</a>
+      @if (wordSets.length === 0) {
+        <p>You don't have any word sets yet.</p>
+        <a routerLink="/word-sets/create" class="btn-primary">Create your first set</a>
+      } @else {
+        <p>No word sets match your search.</p>
+        <button class="btn-primary" (click)="resetFilters()">Clear search</button>
+      }
     </div>
   } @else {
     <div class="word-sets-grid">
-      @for (set of wordSets; track set.id) {
+      @for (set of filteredWordSets; track set.id) {
         <div class="word-set-card" [routerLink]="['/word-sets', set.id]">
           <div class="card-header">
             <h2>{{ set.title }}</h2>
-            <button class="delete-btn" (click)="deleteSet(set.id, $event)">
-              <span class="material-icons">delete</span>
-            </button>
           </div>
           <p class="description">{{ set.description }}</p>
           <div class="card-footer">
@@ -22,12 +50,16 @@
             <span class="date">Created: {{ set.createdAt | date:'short' }}</span>
           </div>
           <div class="card-actions">
-            <a [routerLink]="['/word-sets', set.id, 'study']" class="btn btn-primary">
+            <a [routerLink]="['/word-sets', set.id, 'study']" class="btn btn-primary" (click)="$event.stopPropagation()">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
                 <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="currentColor"/>
               </svg>
               Study
             </a>
+            <button class="btn btn-danger" (click)="deleteSet(set.id, $event)">
+              <span class="material-icons">delete</span>
+              Delete
+            </button>
           </div>
         </div>
       }
