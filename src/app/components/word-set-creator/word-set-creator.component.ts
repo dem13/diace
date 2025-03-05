@@ -87,7 +87,7 @@ export class WordSetCreatorComponent implements OnInit {
   }
 
   addWord(): void {
-    if (this.words.length < 20) {
+    if (this.words.length < 200) {
       this.words.push(this.createWordFormGroup());
     }
   }
